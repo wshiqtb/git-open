@@ -4,7 +4,8 @@
   "description": "",
   "keywords": [],
   "author": "",
-  "license": "ISC",  
+  "license": "ISC",
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
@@ -12,17 +13,22 @@
     "bin",
     "src"
   ],
-  "type": "module",
-  "main": "src/index.js",
-  "module": "src/index.js",
   "bin": {
     "git-open": "./bin/git-open.js"
   },
   "scripts": {
     "build": "rolldown --config rolldown.config.js",
     "dev": "rolldown --config rolldown.config.js --watch",
+    "postversion": "git push --tags && npm publish"
   },
-
+  "main": "dist/index.mjs",
+  "module": "dist/index.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
   "volta": {
     "node": "18.20.2"
   },
